@@ -1,3 +1,5 @@
+package com.practice.algo;
+
 public class TowerOfHanoi {
     public static void main(String[] args) {
         int numberOfDisks = 3;
