@@ -28,8 +28,6 @@ public class ConnectedCellsInMatrix {
 
     private static void findMaxConnectedCells(int[][] mat, int i, int j, int rowSize, int colSize, boolean[][] tempMat) {
 
-        if (i > rowSize || j > colSize)
-            return;
         tempMat[i][j] = true;
 
         int[][] directions = {{-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}};
@@ -38,8 +36,7 @@ public class ConnectedCellsInMatrix {
             int ni = i + directions[p][0];
             int nj = j + directions[p][1];
 
-            int checkVal = getNewCellVAlue(mat, ni, nj, rowSize, colSize);
-            if (checkVal > 0 && tempMat[ni][nj] == false) {
+            if (isSafe(mat, ni, nj, rowSize, colSize,tempMat)) {
                 size++;
                 findMaxConnectedCells(mat, ni, nj, rowSize, colSize, tempMat);
             }
@@ -47,9 +44,7 @@ public class ConnectedCellsInMatrix {
 
     }
 
-    private static int getNewCellVAlue(int[][] mat, int ni, int nj, int rowSize, int colSize) {
-        if (ni < 0 || ni >= rowSize || nj < 0 || nj >= colSize)
-            return 0;
-        return mat[ni][nj];
+    private static boolean isSafe(int[][] mat, int ni, int nj, int rowSize, int colSize, boolean[][] tempMat) {
+        return (ni >= 0 && ni < rowSize &&  nj >= 0 && nj < colSize && mat[ni][nj]==1 && tempMat[ni][nj]==false);
     }
 }
